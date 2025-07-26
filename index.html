@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aashna Peerzade | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --darker: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100%;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--light-gray);
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+            position: absolute;
+            height: 100%;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .profile-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .profile h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--darker);
+        }
+
+        .profile p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .contact-sidebar {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .contact-item i {
+            margin-right: 0.8rem;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .mobile-menu-btn {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--darker);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        /* About Section */
+        .about-text {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .about-card h4 {
+            margin-bottom: 0.3rem;
+            color: var(--darker);
+            font-size: 1rem;
+        }
+
+        .about-card p {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid var(--primary);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .job-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--darker);
+        }
+
+        .company {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .date {
+            color: var(--gray);
+            font-size: 0.85rem;
+            background: var(--light-gray);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .job-description {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .job-highlights {
+            padding-left: 1.2rem;
+        }
+
+        .job-highlights li {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .job-highlights li::before {
+            content: '▹';
+            position: absolute;
+            left: -1.2rem;
+            color: var(--primary);
+        }
+
+        .expertise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .expertise-tag {
+            background: var(--light-gray);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--darker);
+        }
+
+        .project-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: var(--light-gray);
+            color: var(--dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skills-category {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .skills-category h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--darker);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .skills-category h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skills-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+.internship-section {
+    margin-top: 40px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.internship-title {
+    font-size: 22px;
+    color: #0e0e0e;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.internship-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.internship-item {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    transition: 0.3s ease;
+}
+
+.internship-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.internship-item h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.internship-item p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+        /* Education Section */
+        .education-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid var(--primary);
+        }
+
+        .degree {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--darker);
+            margin-bottom: 0.3rem;
+        }
+
+        .institution {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-date {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--darker);
+            font-weight: 600;
+        }
+
+        .info-text p,
+        .info-text a {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-text a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .social-links {
+            flex: 1;
+            min-width: 300px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid var(--primary);
+        }
+
+        .social-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--darker);
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .social-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+        }
+
+        .social-icon {
+            width: 80px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .social-icon.linkedin {
+            background: #0A66C2;
+        }
+
+        .social-icon.github {
+            background: #333333;
+        }
+
+        .social-icon.facebook {
+            background: #1877F2;
+        }
+
+        .social-icon.twitter {
+            background: #1DA1F2;
+        }
+
+        .social-icon.instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+        }
+
+        .contact-form-container {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--darker);
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background-color: var(--light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Declaration Section */
+        .declaration {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+        }
+
+        .declaration p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .signature {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .signature-name {
+            font-weight: 600;
+            color: var(--darker);
+            font-size: 0.95rem;
+        }
+
+        .signature-date {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                position: fixed;
+                height: 100%;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .main-content {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .about-grid,
+            .projects-grid,
+            .skills-container,
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+
+            .social-links {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-form-container {
+                padding: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 0.7rem 1rem;
+            }
+
+            .submit-btn {
+                padding: 0.7rem 1rem;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Mobile Menu Button -->
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>Aashna Peerzade</h2>
+                <p>Full Stack Developer</p>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link active" data-tab="about">
+                        <i class="fas fa-user"></i> About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link" data-tab="experience">
+                        <i class="fas fa-briefcase"></i> Experience
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link" data-tab="projects">
+                        <i class="fas fa-code"></i> Projects
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link" data-tab="skills">
+                        <i class="fas fa-cog"></i> Skills
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#education" class="nav-link" data-tab="education">
+                        <i class="fas fa-graduation-cap"></i> Education
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-tab="contact">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </li>
+            </ul>
+
+            <div class="contact-sidebar">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Nerul, Navi Mumbai</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>aashnapeerzade@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 9326903033</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- About Tab -->
+            <div id="about" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">About Me</h2>
+                    <div class="about-text">
+                        <p>Creative Web Developer and Designer with 2+ years of experience in full-stack development,
+                            UI/UX design, and software programming. Skilled in HTML, CSS, JavaScript, PHP, ASP.NET, C#,
+                            SQL, and design tools like Figma and Photoshop.</p>
+                        <p>Strong leadership and project management abilities with proven experience in developing HRMS,
+                            stock market reporting systems, and student management solutions. Passionate about
+                            delivering responsive, user-friendly digital solutions.</p>
+                    </div>
+
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h4>Experience</h4>
+                            <p>2+ Years Development</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h4>Projects</h4>
+                            <p>15+ Completed</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h4>Languages</h4>
+                            <p>Hindi, English, Urdu</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4>Education</h4>
+                            <p>Computer Engineering</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience Tab -->
+            <div id="experience" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Professional Experience</h2>
+
+                    <!-- IT Trainer -->
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">IT Trainer</h3>
+                                <p class="company">Techno Solutions, Kurla</p>
+                            </div>
+                            <span class="date">April 2025 - Present</span>
+                        </div>
+                        <p class="job-description">
+                            Delivering technical training on IT and business tools with hands-on projects for real-world
+                            learning.
+                        </p>
+                        <ul class="job-highlights">
+                            <li>Conducting training sessions on Accounts, Tally ERP 9, Advanced Excel, MS-CIT, and Web
+                                Designing</li>
+                            <li>Teaching programming basics including Python for beginners</li>
+                            <li>Developing customized training material and course content for students</li>
+                            <li>Handling institute accounts and maintaining financial records</li>
+                        </ul>
+                        <div class="expertise">
+
+                            <div class="expertise-tags">
+                                <span class="expertise-tag">Tally Prime</span>
+                                <span class="expertise-tag">Advanced Excel</span>
+                                <span class="expertise-tag">MS-CIT</span>
+                                <span class="expertise-tag">Accounts</span>
+                                <span class="expertise-tag">Web Designing (HTML, CSS, PHP, JS)</span>
+                                <span class="expertise-tag">Python</span>
+                                <span class="expertise-tag">Database Basics (MySQL)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Leader | HR | Full Stack Developer -->
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Team Leader | HR | Full Stack Developer</h3>
+                                <p class="company">Comet Info Solutions, Navi Mumbai</p>
+                            </div>
+                            <span class="date">2024 - 2025</span>
+                        </div>
+                        <p class="job-description">
+                            Led the development of enterprise-grade applications, managed HR processes, and provided
+                            leadership to the technical team.
+                        </p>
+                        <ul class="job-highlights">
+                            <li>Developed HRMS with modules for employee onboarding, leave management, and payroll</li>
+                            <li>Created Stock Market Reporting System with real-time API integration</li>
+                            <li>Implemented secure role-based authentication systems for enterprise apps</li>
+                            <li>Mentored junior developers and conducted regular code reviews</li>
+                            <li>Handled HR activities including interviews, onboarding, and team management</li>
+                        </ul>
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">ASP.NET</span>
+                            <span class="expertise-tag">C#</span>
+                            <span class="expertise-tag">SQL Server</span>
+                            <span class="expertise-tag">Team Leadership</span>
+                            <span class="expertise-tag">Figma</span>
+                            <span class="expertise-tag">Client Proposal PPT</span>
+                            <span class="expertise-tag">Testing API</span>
+                            <span class="expertise-tag">Integration API</span>
+                        </div>
+                    </div>
+
+                    <!-- IT Professor -->
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">IT Professor</h3>
+                                <p class="company">Anjuman Islam's Mustafa Fakih Jr. College, Turbhe</p>
+                            </div>
+                            <span class="date">2023 - 2024</span>
+                        </div>
+                        <p class="job-description">
+                            Taught programming fundamentals and web development, guided students in project building and
+                            career preparation.
+                        </p>
+                        <ul class="job-highlights">
+                            <li>Taught programming fundamentals (HTML/CSS, JavaScript, Python, Databases)</li>
+                            <li>Developed curriculum for web development and IT basics</li>
+                            <li>Guided students in building real-world projects and preparing for exams</li>
+                        </ul>
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">Teaching</span>
+                            <span class="expertise-tag">Curriculum Development</span>
+                            <span class="expertise-tag">Student Mentoring</span>
+                            <span class="expertise-tag">Project Guidance</span>
+                        </div>
+                    </div>
+
+                    <!-- NEW Experience: Designer -->
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Designer</h3>
+                                <p class="company">Navi Mumbai Education and Welfare Trust Foundation, Seawoods</p>
+                            </div>
+                            <span class="date">2022 - 2023</span>
+                        </div>
+                        <p class="job-description">
+                            Designed creative graphics, promotional materials, and managed digital branding for
+                            educational campaigns and trust programs.
+                        </p>
+                        <ul class="job-highlights">
+                            <li>Created social media creatives and print designs for events and workshops</li>
+                            <li>Designed banners, posters, and digital flyers for education programs</li>
+                            <li>Collaborated with the marketing team for branding consistency</li>
+                            <li>Handled website content updates and basic UI improvements</li>
+                        </ul>
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">Graphic Design</span>
+                            <span class="expertise-tag">Canva</span>
+                            <span class="expertise-tag">Photoshop</span>
+                            <span class="expertise-tag">Social Media Design</span>
+                            <span class="expertise-tag">Branding</span>
+                            <span class="expertise-tag">UI Basics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Projects Tab -->
+            <div id="projects" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Projects</h2>
+
+                    <!-- Advanced Projects -->
+                    <h3 class="sub-title">Advanced Projects</h3>
+                    <div class="projects-grid">
+                        <!-- HRMS Project -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>HR Management System</h3>
+                                <p>Enterprise HRMS with modules for onboarding, payroll, leave management, and
+                                    role-based authentication.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag"><i class="fab fa-microsoft"></i> ASP.NET</span>
+                                    <span class="tech-tag"><i class="fas fa-database"></i> SQL Server</span>
+                                    <span class="tech-tag"><i class="fab fa-figma"></i> Figma (UI/UX Design)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stock Market Portfolio -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Stock Market Portfolio Reports</h3>
+                                <p>Dynamic dashboard for IPOs, Ledger transactions, and detailed financial reporting
+                                    with charts and APIs.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">ASP.NET</span>
+                                    <span class="tech-tag">SQL Server</span>
+                                    <span class="tech-tag">API Integration</span>
+                                    <span class="tech-tag">Figma</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IPO Application -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>IPO Apply Application</h3>
+                                <p>Application system with multiple access panels like Client, Admin, Manager with
+                                    real-time validation.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">ASP.NET</span>
+                                    <span class="tech-tag">SQL</span>
+                                    <span class="tech-tag">Figma</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEW: Pipeline Engineering Website -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Pipeline Engineering Website</h3>
+                                <p>Developed a responsive website for a pipeline engineering client as a freelancing
+                                    project with full hosting setup.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                    <span class="tech-tag">Hosting & Deployment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Basic Projects -->
+                    <h3 class="sub-title">Basic Projects</h3>
+                    <div class="projects-grid">
+                        <!-- Netflix Clone -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Netflix Clone</h3>
+                                <p>Responsive UI clone of Netflix using HTML, CSS, and JS.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Temperature Converter -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Temperature Converter</h3>
+                                <p>Simple web tool to convert temperature between Celsius, Fahrenheit, and Kelvin.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Library Management System -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Library Management System</h3>
+                                <p>Web application to manage books and member details with a database.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Management -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>Student Management System</h3>
+                                <p>Manages student records, attendance, and basic reporting.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- E-commerce Management -->
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="project-info">
+                                <h3>E-commerce Management</h3>
+                                <p>Basic online store with billing system for institute level projects.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+  <div id="skills" class="tab-content">
+    <div class="section">
+        <h2 class="section-title">Technical Skills</h2>
+
+        <div class="skills-container">
+            <!-- Frontend -->
+            <div class="skills-category">
+                <h3><i class="fas fa-laptop-code"></i> Frontend Development</h3>
+                <ul class="skills-list">
+                    <li><i class="fab fa-html5"></i> HTML5 & CSS3</li>
+                    <li><i class="fab fa-js"></i> JavaScript (ES6+)</li>
+                    <li><i class="fab fa-bootstrap"></i> Bootstrap</li>
+                    <li><i class="fas fa-paint-brush"></i> Tailwind CSS</li>
+                    <li><i class="fas fa-mobile-alt"></i> Responsive Design</li>
+                </ul>
+            </div>
+
+            <!-- Backend -->
+            <div class="skills-category">
+                <h3><i class="fas fa-server"></i> Backend Development</h3>
+                <ul class="skills-list">
+                    <li><i class="fas fa-code"></i> ASP.NET</li>
+                    <li><i class="fas fa-cogs"></i> C#</li>
+                    <li><i class="fab fa-php"></i> PHP</li>
+                    <li><i class="fas fa-database"></i> SQL Server</li>
+                    <li><i class="fas fa-database"></i> MySQL</li>
+                </ul>
+            </div>
+
+            <!-- Design & Tools -->
+            <div class="skills-category">
+                <h3><i class="fas fa-pencil-ruler"></i> Design & Tools</h3>
+                <ul class="skills-list">
+                    <li><i class="fab fa-figma"></i> Figma</li>
+                    <li><i class="fas fa-image"></i> Adobe Photoshop</li>
+                    <li><i class="fas fa-user-edit"></i> UI/UX Design</li>
+                    <li><i class="fab fa-git-alt"></i> Git Version Control</li>
+                    <li><i class="fas fa-vial"></i> Postman</li>
+                </ul>
+            </div>
+
+            <!-- Professional Skills -->
+            <div class="skills-category">
+                <h3><i class="fas fa-briefcase"></i> Professional Skills</h3>
+                <ul class="skills-list">
+                    <li><i class="fas fa-users"></i> Team Leadership</li>
+                    <li><i class="fas fa-tasks"></i> Project Management</li>
+                    <li><i class="fas fa-file-alt"></i> Technical Documentation</li>
+                    <li><i class="fas fa-comments"></i> Client Communication</li>
+                    <li><i class="fas fa-lightbulb"></i> Problem Solving</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Internship Section -->
+        <div class="internship-section">
+            <h2 class="internship-title"><i class="fas fa-user-graduate"></i> Internship Experience</h2>
+            <div class="internship-list">
+                <div class="internship-item">
+                    <h4>3-Month Internship in Web Development</h4>
+                    <p>Worked on live projects, developed responsive websites using HTML, CSS, JavaScript, and PHP.</p>
+                </div>
+                <div class="internship-item">
+                    <h4>1-Month Remote Internship at InternPe</h4>
+                    <p>Contributed to real-time projects in web development, worked with APIs, and optimized UI.</p>
+                </div>
+                <div class="internship-item">
+                    <h4>1-Month Internship at Bharat Intern</h4>
+                    <p>Worked on multi-level projects including portfolio websites, e-commerce layouts, and dashboards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <!-- Education Tab -->
+            <div id="education" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+
+                    <div class="education-item">
+                        <h3 class="degree">Diploma in Computer Engineering</h3>
+                        <p class="institution">Anjuman-I-Islam Abdul Razzak Kalsekar Polytechnic, Panvel</p>
+                        <p class="education-date">2023 | First Class</p>
+                    </div>
+
+                    <div class="education-item">
+                        <h3 class="degree">MSCIT (Maharashtra State Certificate in IT)</h3>
+                        <p class="institution">HP Infotech, Ambernath</p>
+                        <p class="education-date">2014 | 88%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Tab -->
+            <div id="contact" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Get In Touch</h2>
+
+                    <div class="contact-container">
+                        <!-- Contact Info Cards -->
+                        <div class="contact-info">
+                            <div class="info-card">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Location</h4>
+                                    <p>Nerul, Navi Mumbai, India - 400706</p>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Email</h4>
+                                    <a href="mailto:aashnapeerzade@gmail.com">aashnapeerzade@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Phone/WhatsApp</h4>
+                                    <a href="tel:+919326903033">+91 9326903033</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media Links -->
+                        <div class="social-links">
+                            <h3 class="social-title">Connect With Me</h3>
+                            <div class="social-icons">
+                                <a href="https://www.linkedin.com/in/aashna-peerzade-3245b7246" target="_blank"
+                                    class="social-icon linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://github.com/Aashnapeerzade1999" target="_blank"
+                                    class="social-icon github">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.facebook.com/aashna.pxd?mibextid=ZbWKwL" target="_blank"
+                                    class="social-icon facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/example" target="_blank" class="social-icon twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://www.instagram.com/example" target="_blank"
+                                    class="social-icon instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="declaration">
+                        <h3 class="section-title">Declaration</h3>
+                        <p>I hereby declare that the information furnished above is true to the best of my knowledge and
+                            belief. I understand that any willful misrepresentation or concealment of facts may lead to
+                            disqualification or termination of employment.</p>
+                        <div class="signature">
+                            <div class="signature-name">Aashna Peerzade</div>
+                            <div class="signature-date" id="current-date"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        const navLinks = document.querySelectorAll('.nav-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Remove active class from all links and tabs
+                navLinks.forEach(item => item.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked link and corresponding tab
+                link.classList.add('active');
+                const tabId = link.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+
+                // Close sidebar on mobile after clicking a link
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Set current date for declaration
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992 &&
+                !sidebar.contains(e.target) &&
+                e.target !== mobileMenuBtn) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+
+</html>
